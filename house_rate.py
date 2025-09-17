@@ -8,15 +8,14 @@ w=np.zeros(x_axis.shape[1])
 # x_axis=np.array([1,2])
 def z_normalization(x):
     mu=np.mean(x,axis=0)
-    sigma=np.mean(x,axis=0)
+    sigma=np.std(x,axis=0)
     x_normal=(x-mu)/sigma
-    return x_normal
+    return x_normal,sigma,mu
 def func(x,w,b):
     n=np.dot(w,x)+b
     return n
 #cost function for the program
 def func_cost(w,b,x,y):
-    x= z_normalization(x)
     l=x.shape[0]
     cost_sum=0
     for i in range(l):
@@ -27,7 +26,6 @@ def func_cost(w,b,x,y):
     return total_sum
 #gradient desent
 def gradient(x,b,w,y):
-    x=z_normalization(x)
     m,l=x.shape
     jw=np.zeros(l)
     jb=0
@@ -39,7 +37,6 @@ def gradient(x,b,w,y):
     return jw,jb
 # final gradient desent function
 def gradient_desent(w_in,b_in,x,y,nums,alpha):
-    x=z_normalization(x)
     w=copy.deepcopy(w_in)
     b=b_in
     for i in range(nums):
@@ -47,6 +44,10 @@ def gradient_desent(w_in,b_in,x,y,nums,alpha):
         b=b-alpha*jb
         w=w-alpha*jw
     return w,b
-print(gradient_desent(w,0,x_axis,y_axis,100000,1e-7))
-print(func_cost([ 0.26101297, -0.12314478, -0.14273909, -0.50344429],0.01959430567333863,x_axis,y_axis))
-print(func([2547,3,3,60],[ 0.26101297, -0.12314478, -0.14273909, -0.50344429],0.01959430567333863))
+x_normal,sigma,mu = z_normalization(x_axis)
+w_final, b_final = gradient_desent(w,0,x_normal,y_axis,100000,1.1e-3)
+print("Final weights and bias:",'w:', w_final,'b:', b_final)
+print("Final cost:", func_cost(w_final,b_final,x_normal,y_axis))
+x_new = np.array([2547,3,3,60])
+x_new_norm = (x_new - mu)/sigma
+print("Prediction:", func(x_new_norm,w_final,b_final))
