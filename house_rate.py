@@ -6,6 +6,11 @@ y_axis=np.array([271.5,232,509.8])
 x_axis=np.array([[952,2,1,65],[1244,3,2,64],[1947,3,2,17]])
 w=np.zeros(x_axis.shape[1])
 # x_axis=np.array([1,2])
+def z_normalization(x):
+    mu=np.mean(x,axis=0)
+    sigma=np.mean(x,axis=0)
+    x_normal=(x-mu)/sigma
+    return x_normal
 def func(x,w,b):
     n=np.dot(w,x)+b
     return n
