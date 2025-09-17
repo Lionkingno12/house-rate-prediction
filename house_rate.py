@@ -11,7 +11,6 @@ def func(x,w,b):
     return n
 #cost function for the program
 def func_cost(w,b,x,y):
-    x= z_normalization(x)
     l=x.shape[0]
     cost_sum=0
     for i in range(l):
@@ -22,7 +21,6 @@ def func_cost(w,b,x,y):
     return total_sum
 #gradient desent
 def gradient(x,b,w,y):
-    x=z_normalization(x)
     m,l=x.shape
     jw=np.zeros(l)
     jb=0
@@ -34,7 +32,6 @@ def gradient(x,b,w,y):
     return jw,jb
 # final gradient desent function
 def gradient_desent(w_in,b_in,x,y,nums,alpha):
-    x=z_normalization(x)
     w=copy.deepcopy(w_in)
     b=b_in
     for i in range(nums):
