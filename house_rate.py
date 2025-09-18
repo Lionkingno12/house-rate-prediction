@@ -48,6 +48,6 @@ x_normal,sigma,mu = z_normalization(x_axis)
 w_final, b_final = gradient_desent(w,0,x_normal,y_axis,100000,1.1e-3)
 print("Final weights and bias:",'w:', w_final,'b:', b_final)
 print("Final cost:", func_cost(w_final,b_final,x_normal,y_axis))
-x_new = np.array([2547,3,3,6])
+x_new = np.array([2547,3,3,60])
 x_new_norm = (x_new - mu)/sigma
 print("Prediction:", func(x_new_norm,w_final,b_final))
